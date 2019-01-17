@@ -20,6 +20,8 @@ clientApp.resolve(ref('local')).then(function(result) {
     console.log('Local: %s', result);
 });
 
+// Test issue https://github.com/dwstech/muster/issues/38
+
 // 1. Resolve a remote ref
 
 clientApp.resolve(ref('api', 'greeting')).then(function(result) {
@@ -37,3 +39,27 @@ clientApp.resolve(ref('api', 'alias')).then(function(result) {
 // clientApp.resolve(ref('api', 'greeting')).then(function(result) {
 //     console.log('Greeting: %s', result);
 // });
+
+// 4. test issue https://github.com/dwstech/muster/issues/37
+
+// NOTE on page reload, MusterError: Node does not support getChild operation is thrown
+
+clientApp.resolve(query(ref('api', 'accounts', 'one'), {
+    id: true, name: true, active: true
+})).subscribe(function(result) {
+    console.log('Account One:', result);
+});
+
+setTimeout(function() {
+    clientApp.resolve(set(ref('api', 'name'), 'Julia')).then(function() {
+        console.log('Updated graph: api.name');
+    });
+}, 1000);
+
+setTimeout(function() {
+    clientApp.resolve(set(ref('api', 'accounts', 'one'), {
+        name: 'Changed'
+    })).then(function() {
+        console.log('Updated graph: api.accounts.one');
+    });
+}, 2000);

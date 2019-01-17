@@ -1,12 +1,18 @@
-import muster, { ref, variable, format, computed, match, param, types, fromPromise } from '@dws/muster';
+import muster, { ref, variable, format, computed, match, param, types, fromPromise, toNode, ok } from '@dws/muster';
 import { musterExpress, socketConnect } from '@dws/muster-server';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import http from 'http';
 import WebSocket from 'ws';
+import _ from 'lodash';
 
 // NOTE WS transport also fails with just the HTTP server (no express)
+
+const accounts = {
+    one: { id: 'one', name: 'One', active: true },
+    two: { id: 'two', name: 'Two', active: true }
+};
 
 // Create simple muster graph
 const musterApp = muster({
@@ -14,7 +20,18 @@ const musterApp = muster({
     greeting: format('Hello, ${name}!', {
         name: ref('name')
     }),
-    alias: ref('greeting')
+    alias: ref('greeting'),
+    accounts: {
+       [match(types.string, 'id')]: fromPromise({
+           get: function({ id }) {
+               return Promise.resolve(toNode(accounts[id]));
+           },
+           set: function({ id }, data) {
+               if (accounts[id]) _.extend(accounts[id], data);
+               return Promise.resolve(ok());
+           }
+       })
+    }
 });
 
 // Create the express.js app
@@ -23,7 +40,7 @@ const app = express();
 app.use(cors());
 
 app.post('/muster', bodyParser.json(), musterExpress(musterApp, {
-    enableRequestLogging: true
+    enableRequestLogging: false
 }));
 
 // Explicitly create HTTP server
