@@ -1,0 +1,49 @@
+{
+  "name": "muster-demo",
+  "version": "1.0.0",
+  "description": "Testing Muster",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --bail --require babel-register test/**",
+    "start": "webpack-dev-server --mode development --progress --open",
+    "build": "webpack --mode production --progress",
+    "watch": "nodemon --exec babel-node ./src/index.js",
+    "serve": "nodemon --exec babel-node ./server/index.js"
+  },
+  "author": "Fabien Franzen",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "lodash-webpack-plugin": "^0.11.5",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.9",
+    "should": "^13.2.3",
+    "webpack": "^4.16.1",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.1.14"
+  },
+  "dependencies": {
+    "@dws/muster": "^6.6.0",
+    "@dws/muster-remote": "^6.6.0",
+    "@dws/muster-server": "^6.6.0",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "ws": "^6.1.2"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "test/*",
+      "src/*"
+    ],
+    "delay": "2500"
+  }
+}
