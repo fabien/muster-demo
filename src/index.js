@@ -58,7 +58,7 @@ setTimeout(function() {
 
 setTimeout(function() {
     clientApp.resolve(set(ref('api', 'accounts', 'one'), {
-        name: 'Changed'
+        id: 'one', name: 'Changed ' + new Date(), active: true
     })).then(function() {
         console.log('Updated graph: api.accounts.one');
     });
