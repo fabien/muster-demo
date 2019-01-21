@@ -25,14 +25,14 @@
     "mocha": "^5.2.0",
     "nodemon": "^1.18.9",
     "should": "^13.2.3",
-    "webpack": "^4.16.1",
+    "webpack": "^4.29.0",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "@dws/muster": "^6.6.0",
-    "@dws/muster-remote": "^6.6.0",
-    "@dws/muster-server": "^6.6.0",
+    "@dws/muster": "^6.6.1",
+    "@dws/muster-remote": "^6.6.1",
+    "@dws/muster-server": "^6.6.1",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",

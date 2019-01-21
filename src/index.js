@@ -20,29 +20,13 @@ clientApp.resolve(ref('local')).then(function(result) {
     console.log('Local: %s', result);
 });
 
-// Test issue https://github.com/dwstech/muster/issues/38
-
-// 1. Resolve a remote ref
-
 clientApp.resolve(ref('api', 'greeting')).then(function(result) {
     console.log('Greeting: %s', result);
 });
 
-// 2. When enabling the following, error: socket.js:174 WebSocket connection to 'ws://0.0.0.0:8000/' failed: WebSocket is closed before the connection is established.
-
 clientApp.resolve(ref('api', 'alias')).then(function(result) {
     console.log('Greeting (alias): %s', result);
 });
-
-// 3. When this is enabled, error: socket.js:158 WebSocket is already in CLOSING or CLOSED state.
-
-// clientApp.resolve(ref('api', 'greeting')).then(function(result) {
-//     console.log('Greeting: %s', result);
-// });
-
-// 4. test issue https://github.com/dwstech/muster/issues/37
-
-// NOTE on page reload, MusterError: Node does not support getChild operation is thrown
 
 clientApp.resolve(query(ref('api', 'accounts', 'one'), {
     id: true, name: true, active: true
@@ -56,10 +40,15 @@ setTimeout(function() {
     });
 }, 1000);
 
+// With the setTimeout above, the one below is not executing at all.
+// Without it, it throws MusterError: Node does not support getChild operation
+
 setTimeout(function() {
     clientApp.resolve(set(ref('api', 'accounts', 'one'), {
         id: 'one', name: 'Changed ' + new Date(), active: true
     })).then(function() {
         console.log('Updated graph: api.accounts.one');
+    }).catch(function(err) {
+        console.log(err);
     });
 }, 2000);
