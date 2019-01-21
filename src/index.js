@@ -1,6 +1,6 @@
 import muster from '@dws/muster';
 import {
-    ref, query, entries, head, root,
+    ref, query, entries, head, root, toNode,
     get, set, invalidate, invalidateOn, on, dispatch
 } from '@dws/muster';
 
@@ -44,9 +44,9 @@ setTimeout(function() {
 // Without it, it throws MusterError: Node does not support getChild operation
 
 setTimeout(function() {
-    clientApp.resolve(set(ref('api', 'accounts', 'one'), {
+    clientApp.resolve(set('api', 'accounts', 'one', toNode({
         id: 'one', name: 'Changed ' + new Date(), active: true
-    })).then(function() {
+    }))).then(function() {
         console.log('Updated graph: api.accounts.one');
     }).catch(function(err) {
         console.log(err);
