@@ -27,7 +27,9 @@ const musterApp = muster({
                return Promise.resolve(toNode(accounts[id]));
            },
            set: function({ id }, data) {
-               if (accounts[id]) _.extend(accounts[id], data);
+               if (accounts[id]) {
+                   accounts[id] = _.extend({}, accounts[id], data);
+               }
                return Promise.resolve(ok());
            }
        })
