@@ -30,14 +30,14 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "@dws/muster": "^6.6.1",
-    "@dws/muster-remote": "^6.6.1",
-    "@dws/muster-server": "^6.6.1",
+    "@dws/muster": "^6.6.2",
+    "@dws/muster-remote": "^6.6.2",
+    "@dws/muster-server": "^6.6.2",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "lodash": "^4.17.11",
-    "ws": "^6.1.2"
+    "ws": "^6.1.3"
   },
   "nodemonConfig": {
     "ignore": [

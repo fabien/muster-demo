@@ -44,7 +44,7 @@ setTimeout(function() {
 // Without it, it throws MusterError: Node does not support getChild operation
 
 setTimeout(function() {
-    clientApp.resolve(set('api', 'accounts', 'one', toNode({
+    clientApp.resolve(set(['api', 'accounts', 'one'], toNode({
         id: 'one', name: 'Changed ' + new Date(), active: true
     }))).then(function() {
         console.log('Updated graph: api.accounts.one');
@@ -52,3 +52,13 @@ setTimeout(function() {
         console.log(err);
     });
 }, 2000);
+
+setTimeout(function() {
+    clientApp.resolve(set(['api', 'accounts', 'one'], toNode({
+        id: 'one', name: 'Changed ' + new Date(), active: true
+    }))).then(function() {
+        console.log('Updated graph: api.accounts.one');
+    }).catch(function(err) {
+        console.log(err);
+    });
+}, 3000);
